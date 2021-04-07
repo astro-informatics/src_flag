@@ -26,5 +26,5 @@ jobs:
     
     - name: Test with pytest
       run: |
-        pip install .
-        pytest src/pys2inv/ --black
+        pip install -e .
+        pytest src/test/pyflag/ --black
