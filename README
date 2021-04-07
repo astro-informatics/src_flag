@@ -4,6 +4,7 @@
               Fast Fourier-Laguerre transform on the ball
 	   Exact spherical Bessel and Fourier-Bessel transforms
   ----------------------------------------------------------------
+  [![Flag-C](https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml/badge.svg)](https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml)
 
 DESCRIPTION
      The FLAG code provides functionality to perform fast and exact
