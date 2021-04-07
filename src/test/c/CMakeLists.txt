@@ -1,4 +1,4 @@
-foreach(testname flag flag_fb)
+foreach(testname flag)
   add_executable(test_${testname} test_${testname}.c)
   target_link_libraries(test_${testname} PRIVATE flag cmocka)
   set_target_properties(
