@@ -1,86 +1,107 @@
-# ======================================== #
+# ======== COMPILER ========
 
-# Directory for SSHT
-SSHTDIR	= ${SSHT}
-# Directory for FFTW
-FFTWDIR	= ${FFTW}
-# Directory for GSL
-GSLDIR	= ${GSL}
-# Directory for MATLAB
-MLAB	=  /Applications/MATLAB_R2015b.app
-# Directory for DOXYGEN
-DOXYGEN_PATH=doxygen
 
-# Compiler and options
 CC	= gcc
-OPT	= -Wall -O3 -g
-# OPT = -Wall -O3 -g -DFLAG_VERSION=\"1.0b1\" -DFLAG_BUILD=\"`svnversion -n .`\"
+
+#OPT	= -Wall -O3 -fopenmp -DFLAG_VERSION=\"0.1\" -DFLAG_BUILD=\"`git rev-parse HEAD`\"
+OPT	= -Wall -g -fopenmp -DFLAG_VERSION=\"0.0.1\" -DFLAG_BUILD=\"`git rev-parse HEAD`\"
+
+
+# ======== LINKS ========
+
 UNAME := $(shell uname)
+PROGDIR = ..
 
-# ======================================== #
-
-# === MATLAB ===
+MLAB		= ${MATLAB}
+MLABINC	= ${MLAB}/extern/include
+MLABLIB	= ${MLAB}/extern/lib
+# -------------------- 
 ifeq ($(UNAME), Linux)
-  MLABINC	= ${MLAB}/extern/include
-  MLABLIB	= ${MLAB}/extern/lib
   MEXEXT	= mexa64
-  MEX 		= ${MLAB}/bin/mex
-  MEXFLAGS	= -cxx
 endif
 ifeq ($(UNAME), Darwin)
-  MLABINC	= ${MLAB}/extern/include
-  MLABLIB	= ${MLAB}/extern/lib
   MEXEXT	= mexmaci64
-  MEX 		= ${MLAB}/bin/mex
-  MEXFLAGS	= -cxx
 endif
+# -------------------- 
+MEX 		= ${MLAB}/bin/mex
+MEXFLAGS	= -cxx
 
-# === GSL ===
-GSLLIB	= $(GSLDIR)/include
-GSLINC	= $(GSLDIR)/lib
-GSLLIBN= gsl
+FLAGDIR   = $(PROGDIR)/flag
+FLAGLIB   = $(FLAGDIR)/lib/c
+FLAGLIBNM = flag
+FLAGSRC   = $(FLAGDIR)/src/c
+FLAGBIN   = $(FLAGDIR)/bin/c
+FLAGOBJ   = $(FLAGSRC)
+FLAGINC   = $(FLAGDIR)/include/c
+FLAGDOC   = $(FLAGDIR)/docs/c
 
-# === FLAG ===
-FLAGDIR = .
-FLAGLIB = $(FLAGDIR)/lib
-FLAGINC = $(FLAGDIR)/include
-FLAGBIN = $(FLAGDIR)/bin
-FLAGLIBN= flag
-FLAGSRC	= $(FLAGDIR)/src/main/c
-FLAGTESTSRC	= $(FLAGDIR)/src/test/c
-FLAGOBJ = $(FLAGSRC)
-FLAGTESTOBJ = $(FLAGTESTSRC)
+SSHTDIR  = $(PROGDIR)/ssht
+SSHTLIB  = $(SSHTDIR)/lib/c
+SSHTLIBNM= ssht
+SSHTBIN  = $(SSHTDIR)/bin/c
+SSHTINC  = $(SSHTDIR)/include/c
 
-# === SSHT ===
-SSHTLIB	= $(SSHTDIR)/lib/c
-SSHTINC	= $(SSHTDIR)/include/c
-SSHTLIBN= ssht
-
-# === FFTW ===
+FFTWDIR      = $(FFTW)
 FFTWINC	     = $(FFTWDIR)/include
 FFTWLIB      = $(FFTWDIR)/lib
 FFTWLIBNM    = fftw3
+#FFTWOMPLIBNM = fftw3_threads
 
-# ======================================== #
+SSHTSRCMAT	= $(SSHTDIR)/src/matlab
+SSHTOBJMAT  	= $(SSHTSRCMAT)
+SSHTOBJMEX  	= $(SSHTSRCMAT)
 
-FLAGSRCMAT	= $(FLAGDIR)/src/main/matlab
-FLAGOBJMAT  = $(FLAGSRCMAT)
-FLAGOBJMEX  = $(FLAGSRCMAT)
+FLAGSRCMAT	= $(FLAGDIR)/src/matlab
+FLAGOBJMAT	= $(FLAGSRCMAT)
+FLAGOBJMEX	= $(FLAGSRCMAT)
+
+GSLDIR	= ${GSL}
+GSLLIB	= $(GSLDIR)/include
+GSLINC	= $(GSLDIR)/lib
+GSLLIBN = gsl
+
+
+# ======== SOURCE LOCATIONS ========
 
 vpath %.c $(FLAGSRC)
-vpath %.c $(FLAGTESTSRC)
-vpath %.h $(FLAGINC)
+vpath %.h $(FLAGSRC)
 vpath %_mex.c $(FLAGSRCMAT)
 
-LDFLAGS = -L$(FLAGLIB) -l$(FLAGLIBN) -L$(FFTWLIB) -l$(FFTWLIBNM) -L$(SSHTLIB) -l$(SSHTLIBN) -lm -lc -fopenmp
 
-LDFLAGSMEX = -L$(FLAGLIB) -l$(FLAGLIBN) -I/usr/local/include -L$(FFTWLIB) -l$(FFTWLIBNM) -L$(SSHTLIB) -l$(SSHTLIBN)
+# ======== FFFLAGS ========
 
-FFLAGS  = -I$(FFTWINC) -I$(SSHTINC) -I$(FLAGINC)  -fopenmp
+FFLAGS  = -I$(FFTWINC) -I$(SSHTINC) -I$(FLAGINC)
+ifeq ($(UNAME), Linux)
+  # Add -fPIC flag (required for mex build).
+  # (Note that fftw must also be built with -fPIC.)
+  FFLAGS += -fPIC
+endif
 
-FLAGOBJS= $(FLAGOBJ)/flag_core.o	\
-	  $(FLAGOBJ)/flag_sampling.o	\
-	  $(FLAGOBJ)/flag_spherlaguerre.o
+
+# ======== LDFLAGS ========
+
+LDFLAGS = -L$(FLAGLIB) -l$(FLAGLIBNM) -L$(SSHTLIB) -l$(SSHTLIBNM) -L$(FFTWLIB) -l$(FFTWLIBNM) -lm
+
+LDFLAGSMEX = -L$(FLAGLIB) -l$(FLAGLIBNM) -L$(SSHTLIB) -l$(SSHTLIBNM) -L$(FFTWLIB) -l$(FFTWLIBNM)
+
+
+#LDFLAGS = -L$(FLAGLIB) -l$(FLAGLIBNM) -L$(SSHTLIB) -l$(SSHTLIBNM) -L$(FFTWLIB) -l$(FFTWOMPLIBNM) -l$(FFTWLIBNM) -lm
+
+#LDFLAGSMEX = -L$(FLAGLIB) -l$(FLAGLIBNM) -L$(SSHTLIB) -l$(SSHTLIBNM) -L$(FFTWLIB) -l$(FFTWOMPLIBNM) -l$(FFTWLIBNM)
+
+
+# ======== OBJECT FILES TO MAKE ========
+
+FLAGOBJS = $(FLAGOBJ)/flag_sampling.o      \
+           $(FLAGOBJ)/flag_core.o          \
+           $(FLAGOBJ)/flag_spherlaguerre.o 
+           # $(FLAGOBJ)/flag_spherbessel.o 
+
+FLAGHEADERS = flag_types.h           \
+			  flag_sampling.h        \
+              flag_core.h 	         \
+              flag_spherlaguerre.h   
+              # flag_spherbessel.h     
 
 ifneq (,$(wildcard $(GSLINC)/gsl/gsl_sf.h))
 	FLAGOBJS+= $(FLAGOBJ)/flag_spherbessel.o
@@ -89,94 +110,109 @@ ifneq (,$(wildcard $(GSLINC)/gsl/gsl_sf.h))
 	LDFLAGS+= -l$(GSLLIBN)
 	LDFLAGSMEX+= -L$(GSLLIB)
 	LDFLAGSMEX+= -l$(GSLLIBN)
-endif
+endif   
 
-FLAGOBJSMAT = $(FLAGOBJMAT)/flag_analysis_mex.o	\
-	$(FLAGOBJMAT)/flag_synthesis_mex.o	\
-	$(FLAGOBJMAT)/flag_sampling_mex.o	\
-	$(FLAGOBJMAT)/flag_sbessel_basis_mex.o	\
-	$(FLAGOBJMAT)/slag_basis_mex.o	\
-	$(FLAGOBJMAT)/slag_synthesis_mex.o	\
-	$(FLAGOBJMAT)/slag_analysis_mex.o	\
-	$(FLAGOBJMAT)/slag_sampling_mex.o	\
-	$(FLAGOBJMAT)/flag_get_tau_mex.o	\
-	$(FLAGOBJMAT)/slag_gausslaguerre_quadrature_mex.o
+FLAGOBJSMAT = $(FLAGOBJMAT)/flag_sampling_mex.o \
+              $(FLAGOBJMAT)/flag_sbessel_basis_mex.o \
+              $(FLAGOBJMAT)/flag_synthesis_mex.o \
+              $(FLAGOBJMAT)/flag_analysis_mex.o  \
+              $(FLAGOBJMAT)/flag_get_tau_mex.o  
 
-FLAGOBJSMEX = $(FLAGOBJMEX)/flag_analysis_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/flag_synthesis_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/flag_sampling_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/flag_sbessel_basis_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/slag_basis_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/slag_synthesis_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/slag_analysis_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/slag_sampling_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/flag_get_tau_mex.$(MEXEXT)	\
-	$(FLAGOBJMEX)/slag_gausslaguerre_quadrature_mex.$(MEXEXT)
 
-$(FLAGOBJ)/%.o: %.c
+FLAGOBJSMEX = $(FLAGOBJMEX)/flag_sampling_mex.$(MEXEXT) \
+              $(FLAGOBJMEX)/flag_sbessel_basis_mex.$(MEXEXT) \
+              $(FLAGOBJMEX)/flag_synthesis_mex.$(MEXEXT) \
+              $(FLAGOBJMEX)/flag_analysis_mex.$(MEXEXT)  \
+              $(FLAGOBJMEX)/flag_get_tau_mex.$(MEXEXT)  
+
+
+# ======== MAKE RULES ========
+
+$(FLAGOBJ)/%.o: %.c $(FLAGHEADERS)
 	$(CC) $(OPT) $(FFLAGS) -c $< -o $@
 
-$(FLAGTESTOBJ)/%.o: %.c
-	$(CC) $(OPT) $(FFLAGS) -c $< -o $@
+# .PHONY: default
+# default: lib unittest test about
 
-$(FLAGOBJMAT)/%_mex.o: %_mex.c $(FLAGLIB)/lib$(FLAGLIBN).a
-	$(CC) $(OPT) $(FFLAGS) -c $< -o $@ -I${MLABINC}
+# .PHONY: unittest
+# unittest: $(FLAGBIN)/unittest/flag_unittest
+# $(FLAGBIN)/unittest/flag_unittest: $(FLAGOBJ)/unittest/flag_unittest.o $(FLAGLIB)/lib$(FLAGLIBNM).a
+# 	$(CC) $(OPT) $< -o $(FLAGBIN)/unittest/flag_unittest $(LDFLAGS)
 
-$(FLAGOBJMEX)/%_mex.$(MEXEXT): $(FLAGOBJMAT)/%_mex.o $(FLAGLIB)/lib$(FLAGLIBN).a
-	$(MEX) $< -output $@ $(LDFLAGSMEX) $(MEXFLAGS) -L$(MLABLIB)
+# .PHONY: rununittest
+# rununittest: unittest
+# 	$(FLAGBIN)/unittest/flag_unittest
 
-# ======================================== #
+# .PHONY: test
+# test: $(FLAGBIN)/flag_test about
+# $(FLAGBIN)/flag_test: $(FLAGOBJ)/flag_test.o $(FLAGLIB)/lib$(FLAGLIBNM).a
+# 	$(CC) $(OPT) $< -o $(FLAGBIN)/flag_test $(LDFLAGS)
 
-.PHONY: default
-default: lib test tidy
+# .PHONY: test_csv
+# test_csv: $(FLAGBIN)/flag_test_csv about
+# $(FLAGBIN)/flag_test_csv: $(FLAGOBJ)/flag_test_csv.o $(FLAGLIB)/lib$(FLAGLIBNM).a
+# 	$(CC) $(OPT) $< -o $(FLAGBIN)/flag_test_csv $(LDFLAGS)
 
-.PHONY: matlab
-matlab: lib $(FLAGOBJSMEX) about
+# .PHONY: about
+# about: $(FLAGBIN)/flag_about
+# $(FLAGBIN)/flag_about: $(FLAGOBJ)/flag_about.o
+# 	$(CC) $(OPT) $< -o $(FLAGBIN)/flag_about
 
-.PHONY: all
-all: lib matlab test about tidy
+# .PHONY: runtest
+# runtest: test
+# 	$(FLAGBIN)/flag_test
+
+# .PHONY: all
+# all: lib unittest test test_csv about matlab
+
+
+# Library
 
 .PHONY: lib
-lib: $(FLAGLIB)/lib$(FLAGLIBN).a
-$(FLAGLIB)/lib$(FLAGLIBN).a: $(FLAGOBJS)
-	ar -r $(FLAGLIB)/lib$(FLAGLIBN).a $(FLAGOBJS)
+lib: $(FLAGLIB)/lib$(FLAGLIBNM).a
+$(FLAGLIB)/lib$(FLAGLIBNM).a: $(FLAGOBJS)
+	ar -r $(FLAGLIB)/lib$(FLAGLIBNM).a $(FLAGOBJS)
 
-.PHONY: test
-test: lib $(FLAGBIN)/flag_test
-$(FLAGBIN)/flag_test: $(FLAGTESTOBJ)/flag_test.o $(FLAGLIB)/lib$(FLAGLIBN).a
-	$(CC) $(OPT) $< -o $(FLAGBIN)/flag_test $(LDFLAGS)
 
-.PHONY: fbtest
-fbtest: lib $(FLAGBIN)/flag_fbtest
-$(FLAGBIN)/flag_fbtest: $(FLAGTESTOBJ)/flag_fbtest.o $(FLAGLIB)/lib$(FLAGLIBN).a
-	$(CC) $(OPT) $< -o $(FLAGBIN)/flag_fbtest $(LDFLAGS)
+# Matlab
 
-.PHONY: about
-about: $(FLAGBIN)/flag_about
-$(FLAGBIN)/flag_about: $(FLAGOBJ)/flag_about.o
-	$(CC) $(OPT) $< -o $(FLAGBIN)/flag_about
-	$(FLAGBIN)/flag_about
+$(FLAGOBJMAT)/%_mex.o: %_mex.c $(FLAGLIB)/lib$(FLAGLIBNM).a
+	$(CC) $(OPT) $(FFLAGS) -c $< -o $@ -I${MLABINC}
 
-.PHONY: doc
-doc:
-	$(DOXYGEN_PATH) $(FLAGDIR)/src/doxygen.config
-.PHONY: cleandoc
-cleandoc:
-	rm -rf $(FLAGDIR)/doc/c/*
+$(FLAGOBJMEX)/%_mex.$(MEXEXT): $(FLAGOBJMAT)/%_mex.o $(FLAGLIB)/lib$(FLAGLIBNM).a
+	$(MEX) $< -output $@ $(LDFLAGSMEX) $(MEXFLAGS) -L$(MLABLIB)
+
+.PHONY: matlab
+matlab: $(FLAGOBJSMEX)
+
+
+# Documentation
+
+# .PHONY: doc
+# doc:
+# 	doxygen $(FLAGSRC)/doxygen.config
+# .PHONY: cleandoc
+# cleandoc:
+# 	rm -f $(FLAGDOC)/html/*
+
+
+# Cleaning up
 
 .PHONY: clean
 clean:	tidy
-	rm -f $(FLAGLIB)/lib$(FLAGLIBN).a
-	rm -f $(FLAGOBJMEX)/*_mex.$(MEXEXT)
-	rm -f $(FLAGBIN)/flag_fbtest
-	rm -f $(FLAGBIN)/flag_test
-	rm -f $(FLAGBIN)/flag_about
+	rm -f $(FLAGOBJ)/*.o
+	# rm -f $(FLAGOBJ)/unittest/*.o
+	rm -f $(FLAGLIB)/lib$(FLAGLIBNM).a
+	# rm -f $(FLAGBIN)/flag_test
+	# rm -f $(FLAGBIN)/flag_about
+	# rm -f $(FLAGBIN)/unittest/flag_unittest
+	rm -f $(FLAGOBJMAT)/*.o
+	rm -f $(FLAGOBJMEX)/*.$(MEXEXT)
 
 .PHONY: tidy
 tidy:
-	rm -f $(FLAGOBJ)/*.o
-	rm -f $(FLAGTESTOBJ)/*.o
-	rm -f $(FLAGOBJMEX)/*.o
 	rm -f *~
 
-# ======================================== #
+.PHONY: cleanall
+cleanall: clean #cleandoc
+

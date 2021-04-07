@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <complex.h>
 #include <fftw3.h>
-#include <ssht.h>
+#include <ssht/ssht.h>
 #include <assert.h>
 
 #define MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -386,6 +386,58 @@ void flag_spherlaguerre_mapped_analysis(complex double *fn, const complex double
 
 }
 
+void flag_spherlaguerre_mapped_analysis_adjoint(complex double *f, const complex double *fn, const double *nodes, const double *weights, double tau, int N, int mapsize)
+{
+	assert(N > 1);
+	assert(mapsize > 1);
+	int i, n, l, offset_i, offset_n;
+	double factor, lagu0, lagu1, lagu2, r;
+	const int alpha = ALPHA;
+
+	double *temp = (double*)calloc(N, sizeof(double));
+	//double normfac;
+
+	for(i=0; i<N; i++)
+	{
+
+		r = nodes[i]/tau;
+		factor = weights[i] * exp(-r/4.0);
+
+		lagu0 = 0.0;
+		lagu1 = 1.0 * exp(-r/4.0);
+
+		temp[0] = factor * pow(factorial_range(1, alpha), -0.5) * lagu1;
+
+		for (n = 1; n < N; n++)
+		{
+			lagu2 =
+				(
+					(alpha + 2 * n - 1 - r) * lagu1 -
+					(alpha + n - 1) * lagu0
+				) / n;
+
+			temp[n] = factor * pow(factorial_range(n+1, n+alpha), -0.5) * lagu2;
+
+			lagu0 = lagu1;
+			lagu1 = lagu2;
+		}
+
+		offset_i = i * mapsize;
+		for (n = 0; n < N; n++)
+		{
+			offset_n = n * mapsize;
+			for(l=0; l<mapsize; l++)
+			{
+				f[l+offset_i] += temp[n] * fn[l+offset_n];
+			}
+		}
+	}
+
+	free(temp);
+
+
+}
+
 void flag_spherlaguerre_mapped_synthesis(complex double *f, const complex double *fn, const double *nodes, int Nnodes, double tau, int N, int mapsize)
 {
 	assert(N > 1);
@@ -407,7 +459,7 @@ void flag_spherlaguerre_mapped_synthesis(complex double *f, const complex double
 		lagu0 = 0.0;
 		lagu1 = 1.0 * exp(-r/4.0);
 
-		temp[0] = factor * pow(factorial_range(1, alpha), -0.5) * lagu1 ;
+		temp[0] = factor * pow(factorial_range(1, alpha), -0.5) * lagu1;
 
 		for (n = 1; n < N; n++)
 		{
@@ -431,6 +483,59 @@ void flag_spherlaguerre_mapped_synthesis(complex double *f, const complex double
 			for(l=0; l<mapsize; l++)
 			{
 				f[l+offset_i] += temp[n] * fn[l+offset_n];
+			}
+		}
+	}
+
+	free(temp);
+
+}
+
+void flag_spherlaguerre_mapped_synthesis_adjoint(complex double *fn, const complex double *f, const double *nodes, int Nnodes, double tau, int N, int mapsize)
+{
+	assert(N > 1);
+	assert(Nnodes > 1);
+	assert(mapsize > 1);
+	int i, n, l, offset_n, offset_i;
+	const int alpha = ALPHA;
+
+	double r;
+	double factor, lagu0, lagu1, lagu2;
+	double *temp = (double*)calloc(N, sizeof(double));
+
+	for (i = 0; i < Nnodes; i++)
+	{
+		r = nodes[i]/tau;
+		factor = exp(-r/4.0);
+		// was factor = (1.0/r) * exp(-r/2.0) * (1.0/sqrt(tau));
+
+		lagu0 = 0.0;
+		lagu1 = 1.0 * exp(-r/4.0);
+
+		temp[0] = factor * pow(factorial_range(1, alpha), -0.5) * lagu1;
+
+		for (n = 1; n < N; n++)
+		{
+			lagu2 =
+				(
+					(alpha + 2 * n - 1 - r) * lagu1 -
+					(alpha + n - 1) * lagu0
+				) / n;
+
+			temp[n] = factor * pow(factorial_range(n+1, n+alpha), -0.5) * lagu2;
+
+			lagu0 = lagu1;
+			lagu1 = lagu2;
+
+		}
+
+		offset_i = i * mapsize;
+		for (n = 0; n < N; n++)
+		{
+			offset_n = n * mapsize;
+			for(l=0; l<mapsize; l++)
+			{
+				fn[l+offset_n] += f[l+offset_i] * temp[n];
 			}
 		}
 	}

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <complex.h>
 #include <fftw3.h>
-#include <ssht.h>
+#include <ssht/ssht.h>
 #include <assert.h>
 
 void allocate_ssht_sampling(double **thetas, double **phis, int L)
