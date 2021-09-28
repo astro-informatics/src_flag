@@ -1,5 +1,7 @@
 include CMakeLists.txt
-include LICENSE.txt README
+include setup.py setup.cfg pyproject.toml
+include COPYRIGHT.txt LICENSE.md README.md
 include cmake/*.cmake
+include conanfile.txt
 include include/flag*.h
-recursive-include src/mian/c *.c *.h CMakeLists.txt
+recursive-include src/main/c *.c *.h CMakeLists.txt

@@ -25,7 +25,7 @@ class FlagConan(ConanFile):
 
     def requirements(self):
         location = "astro-informatics/stable" if self.in_local_cache else "user/testing"
-        self.requires(f"ssht/1.3.4@{location}")
+        self.requires(f"ssht/1.3.7@{location}")
 
     def configure(self):
         if self.settings.compiler == "Visual Studio":

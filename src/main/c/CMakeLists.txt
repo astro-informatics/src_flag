@@ -1,6 +1,6 @@
 # add_library(flag STATIC flag_core.c flag_sampling.c flag_spherlaguerre.c)
 add_library(flag STATIC flag_core.c flag_sampling.c flag_spherbessel.c flag_spherlaguerre.c)
-target_link_libraries(flag PUBLIC ${SSHT_TARGET} GSL::gsl GSL::gslcblas)
+target_link_libraries(flag PUBLIC ssht::ssht GSL::gsl GSL::gslcblas)
 target_include_directories(
   flag
   PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
