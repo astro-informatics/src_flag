@@ -59,12 +59,11 @@ jobs:
       run: cmake --build . --config $BUILD_TYPE
     
     - name: build python extension
-      continue-on-error: true
       working-directory: ${{runner.workspace}}
       run: |
-        pwd
+        ls
         pip install --upgrade pip
-        pip install -e .
+        pip install .
 
     - name: Test
       working-directory: ${{runner.workspace}}
