@@ -62,10 +62,13 @@ jobs:
       continue-on-error: true
       working-directory: ${{runner.workspace}}
       run: |
+        pip install --upgrade pip
         pip install -e .
 
     - name: Test
       working-directory: ${{runner.workspace}}
       # Execute tests defined by the CMake configuration.  
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-      run: pytest 
+      run: |
+        pip install pytest
+        pytest 
