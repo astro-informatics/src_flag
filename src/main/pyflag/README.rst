@@ -42,9 +42,9 @@ from the root directory.
 AUTHORS
 ================================
 
-     `B. Leistedt <www.ixkael.com/blog>`_
-     `J. D. McEwen <www.jasonmcewen.org>`_
-     `M. A. Price <https://scholar.google.com/citations?user=w7_VDLQAAAAJ&hl=en&authuser=1>`_
+`B. Leistedt <www.ixkael.com/blog>`_, 
+`J. D. McEwen <www.jasonmcewen.org>`_, and 
+`M. A. Price <https://scholar.google.com/citations?user=w7_VDLQAAAAJ&hl=en&authuser=1>`_
 
 REFERENCES
 ================================
