@@ -8,19 +8,24 @@ FLAG: Fourier-LAGuerre transform
 .. image:: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml/badge.svg
     :target: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml
 
+.. image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
+    :target: https://astro-informatics.github.io/src_flag/
+
 .. image:: https://img.shields.io/badge/License-GPL-blue.svg
     :target: http://perso.crans.org/besson/LICENSE.html
 
 .. image:: http://img.shields.io/badge/arXiv-1205.0792-orange.svg?style=flat
     :target: https://arxiv.org/abs/1205.0792
 
+.. image:: http://img.shields.io/badge/arXiv-1110.6298-orange.svg?style=flat
+    :target: https://arxiv.org/abs/1110.6298
+
+.. image:: http://img.shields.io/badge/arXiv-2105.05518-orange.svg?style=flat
+    :target: https://arxiv.org/abs/2105.05518
+
 DESCRIPTION
 ================================
-The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball.
-
-DOCUMENTATION
-================================
-See the `code webiste <https://astro-informatics.github.io/flag/>`_ for full documentation and installation procedures. 
+The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball. More details may be found in the extensive `documentation <https://astro-informatics.github.io/flag/>`_.
 
 INSTALLATION
 ================================
@@ -28,7 +33,7 @@ This package can easily be installed from PyPi by running
 
 .. code-block:: bash
 
-    pip install flag 
+    pip install pyflag 
     pip list
 
 or alternatively from source by first compiling the C++ code and running 
@@ -38,6 +43,28 @@ or alternatively from source by first compiling the C++ code and running
     pip install .
 
 from the root directory.
+
+BASIC USAGE
+================================
+First install flag for python, then you can call it from any python script to perform forward and inverse flag transforms and their adjoints by 
+
+.. code-block:: python
+
+    import pyflag as flag 
+    import numpy as np 
+
+    L = 10                          # Angular bandlimit
+    P = 5                           # Radial bandlimit
+    tau = 1                         # Laguerre scaling factor 
+    spin = 0                        # Spin of signal
+    reality = 0                     # Real or complex signals
+
+    # Create a random complex signal (c indexing)
+    f = np.random.rand(P, L, 2*L-1) + 1j*np.random.rand(P, L, 2*L-1)
+    f = f.flatten('C')
+
+    # Compute e.g. the Forward transform 
+    flmp = flag.flag_analysis(f, L, tau, P, spin, reality)
 
 AUTHORS
 ================================
