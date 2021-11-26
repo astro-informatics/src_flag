@@ -16,22 +16,28 @@ FLAG: Fourier-LAGuerre transform
 
 DESCRIPTION
 ================================
-     The FLAG code provides functionality to perform fast and exact
-     Fourier-Laguerre and Fourier-Bessel transforms on the ball.
+The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball.
 
 DOCUMENTATION
 ================================
-
-     See doc/index.html
+See the `code webiste <https://astro-informatics.github.io/flag/>`_ for full documentation and installation procedures. 
 
 INSTALLATION
 ================================
-
+This package can easily be installed from PyPi by running
 
 .. code-block:: bash
 
     pip install flag 
     pip list
+
+or alternatively from source by first compiling the C++ code and running 
+
+.. code-block:: bash 
+
+    pip install .
+
+from the root directory.
 
 AUTHORS
 ================================

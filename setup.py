@@ -4,7 +4,7 @@ from skbuild import setup
 cmake_args = ["-Dtests:BOOL=OFF"]
 
 long_description = (
-    Path(__file__).parent / ".FLAG_Python_Documentation.rst"
+    Path(__file__).parent / "src" / "main" / "pyflag" / ".FLAG_Python_Documentation.rst"
 ).read_text()
 
 setup(
@@ -32,7 +32,7 @@ setup(
     long_description_content_type="text/x-rst",
     url="https://github.com/astro-informatics/flag",
     package_dir={"pyflag": "src/main/pyflag"},
-    package_data={"pyflag": ["FLAG_Python_Documentation.md"]},
+    package_data={"pyflag": ["FLAG_Python_Documentation.rst"]},
     cmake_args=cmake_args,
     cmake_languages=("C",),
     license="GPL-3",
