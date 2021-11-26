@@ -79,38 +79,37 @@ REFERENCES
 .. code-block::
 
     @article{price:2021:bayesian,
-    author  = {Matthew~A.~Price and Jason~D.~McEwen},
-    title   = {Bayesian variational regularization on the ball},
-    journal = {ArXiv},
-    eprint  = {arXiv:2105.05518},
-    year    = 2021
+        author  = {Matthew~A.~Price and Jason~D.~McEwen},
+        title   = {Bayesian variational regularization on the ball},
+        journal = {ArXiv},
+        eprint  = {arXiv:2105.05518},
+        year    = 2021
     }
 
 .. code-block::
 
     @article{leistedt:2012:exact,
-    author  = {Boris~Leistedt and Jason~D.~McEwen},
-    title   = {Exact Wavelets on the Ball},
-    journal = {IEEE Trans. Sig. Proc.},
-    year    = 2012,
-    volume  = {60},
-    number  = {12},
-    pages   = {6257-6269},
-    doi     = {10.1109/TSP.2012.2215030},
+        author  = {Boris~Leistedt and Jason~D.~McEwen},
+        title   = {Exact Wavelets on the Ball},
+        journal = {IEEE Trans. Sig. Proc.},
+        year    = 2012,
+        volume  = {60},
+        number  = {12},
+        pages   = {6257-6269},
+        doi     = {10.1109/TSP.2012.2215030},
     }
 
 .. code-block::
 
     @article{McEwen:2011:novel,
-    author  = {Jason~D.~McEwen and Yves~Wiaux},
-    title   = {A novel sampling theorem on the
-     sphere},
-    journal = {IEEE Trans. Sig. Proc.},
-    year    = 2011,
-    volume  = {59},
-    number  = {12},
-    pages   = {5876-5887},
-    doi     = {10.1109/TSP.2011.2166394},
+        author  = {Jason~D.~McEwen and Yves~Wiaux},
+        title   = {A novel sampling theorem on the sphere},
+        journal = {IEEE Trans. Sig. Proc.},
+        year    = 2011,
+        volume  = {59},
+        number  = {12},
+        pages   = {5876-5887},
+        doi     = {10.1109/TSP.2011.2166394},
     }
 
 LICENSE
