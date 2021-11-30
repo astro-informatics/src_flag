@@ -9,8 +9,8 @@ long_description = (
 
 setup(
     name="pyflag",
-    version="0.0.1",
-    author="Boris Leistedt & Jason McEwen",
+    version="1.0.0",
+    author="Boris Leistedt & Jason McEwen & Matthew Price",
     install_requires=["numpy", "cython", "scipy"],
     extras_require={
         "dev": [

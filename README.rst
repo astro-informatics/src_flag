@@ -22,9 +22,28 @@
 
 DESCRIPTION
 ================================
-The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball. More details may be found in the extensive `documentation <https://astro-informatics.github.io/flag/>`_.
+The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball.
 
-INSTALLATION
+C INSTALLATION
+================================
+The primary C version of this code can be installed from source by running
+
+.. code-block:: bash
+
+     git clone git@github.com:astro-informatics/src_flag.git
+     cd src_flag 
+     mkdir build && cd build
+     cmake .. && make 
+
+Following which one can check the installation by running
+
+.. code-block:: bash
+
+     ctest
+
+within the build directory.
+
+PYTHON INSTALLATION
 ================================
 This package can easily be installed from PyPi by running
 
@@ -39,9 +58,19 @@ or alternatively from source by first compiling the C code and running
 
     pip install .
 
-from the root directory.
+from the root directory, following which the package may be tested by running 
 
-BASIC USAGE
+.. code-block:: bash 
+
+     pytest 
+
+within the root directory.
+
+MATLAB INSTALLATION
+================================
+Mex wrappers are available, however they are currently being sunsetted, so installing previously tagged versions is advised.
+
+BASIC USAGE (PYTHON)
 ================================
 First install flag for python, then you can call it from any python script to perform forward and inverse flag transforms and their adjoints by 
 

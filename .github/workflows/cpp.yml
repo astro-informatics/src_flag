@@ -1,4 +1,4 @@
-name: Flag-C
+name: Tests
 
 on: [push]
 
