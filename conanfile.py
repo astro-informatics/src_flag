@@ -3,10 +3,10 @@ from conans import CMake, ConanFile
 
 class FlagConan(ConanFile):
     name = "flag"
-    version = "0.0.1"
+    version = "1.0.0"
     license = "GPL-3"
-    url = "https://github.com/astro-informatics/flag"
-    homepage = "https://github.com/astro-informatics/flag"
+    url = "https://github.com/astro-informatics/src_flag"
+    homepage = "https://github.com/astro-informatics/src_flag"
     description = "Fast Fourier-Laguerre transform on the ball"
     settings = "os", "arch", "compiler", "build_type"
     topics = ("Physics", "Astrophysics", "Radio Interferometry")

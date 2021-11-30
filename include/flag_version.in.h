@@ -8,8 +8,9 @@ inline const char *flag_info() {
          "  authors:\n"
          "      - Boris Leistedt\n"
          "      - Jason McEwen\n"
+         "      - Matthew Price\n"
          "  license: GPL-3\n"
-         "  url: https://github.com/astro-informatics/flag\n"
+         "  url: https://github.com/astro-informatics/src_flag\n"
          "  version: @PROJECT_VERSION@\n";
 };
 // clang-format off

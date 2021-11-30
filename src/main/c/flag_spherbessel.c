@@ -1,7 +1,7 @@
 
 // FLAG package
-// Copyright (C) 2012 
-// Boris Leistedt & Jason McEwen
+// Copyright (C) 2021 
+// Boris Leistedt & Jason McEwen & Matthew Price
 
 #include "flag.h"
 #include <math.h>

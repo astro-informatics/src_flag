@@ -1,6 +1,6 @@
 // FLAG package
-// Copyright (C) 2012 
-// Boris Leistedt & Jason McEwen
+// Copyright (C) 2021 
+// Boris Leistedt & Jason McEwen & Matthew Price
 
 /*! 
  * \file flag_about.c
@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
   printf("%s\n", "==========================================================");
   printf("%s\n", "  FLAG package");
   printf("%s\n", "  3D Fourier-Laguerre transform on the Solid Sphere");
-  printf("%s\n", "  By Boris Leistedt & Jason McEwen");
+  printf("%s\n", "  By Boris Leistedt & Jason McEwen & Matthew Price");
 
   printf("%s\n", "  See LICENSE.txt for license details.");
 

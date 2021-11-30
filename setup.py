@@ -30,7 +30,7 @@ setup(
     description="Fast Fourier-Laguerre transform on the ball",
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url="https://github.com/astro-informatics/flag",
+    url="https://github.com/astro-informatics/src_flag",
     package_dir={"pyflag": "src/main/pyflag"},
     package_data={"pyflag": ["FLAG_Python_Documentation.rst"]},
     cmake_args=cmake_args,

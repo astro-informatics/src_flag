@@ -1,3 +1,7 @@
+// FLAG package
+// Copyright (C) 2021
+// Boris Leistedt & Jason McEwen & Matthew Price
+
 #ifndef FLAG_TYPES
 #define FLAG_TYPES
 
