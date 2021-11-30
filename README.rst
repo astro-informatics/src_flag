@@ -1,5 +1,3 @@
-.. image:: https://img.shields.io/badge/GitHub-src_flag-brightgreen.svg?style=flat
-    :target: https://github.com/astro-informatics/src_flag
 .. image:: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml/badge.svg
     :target: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml
 .. image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
