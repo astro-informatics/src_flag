@@ -2,7 +2,11 @@
 #ifndef FLAG_SPHERLAGUERRE
 #define FLAG_SPHERLAGUERRE
 
+#include "flag_types.h"
 #include <complex.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*!
  * Compute Gauss-Laguerre quadrature (nodes and weights).
@@ -92,7 +96,21 @@ void flag_spherlaguerre_allocate_sampling(double **nodes, double **weights, int 
  * \param[in]  N Harmonic band-limit.
  * \retval none
  */
-void flag_spherlaguerre_mapped_analysis(complex double *fn, const complex double *f, const double *weights, const double *nodes, double tau, int N, int mapsize);
+void flag_spherlaguerre_mapped_analysis(FLAG_COMPLEX(double) *fn, const FLAG_COMPLEX(double) *f, const double *nodes, const double *weights, double tau, int N, int mapsize);
+
+/*!
+ * Perform adjoint spherical Laguerre analysis.
+ * 3D mapped version - suitable for FLAG transform.
+ *
+ * \param[out]  f Synthesised dataset.
+ * \param[in]  fn Input SLAG coefficients.
+ * \param[in]  nodes Nodes of the sampling.
+ * \param[in]  weights Weights for the SLAG quadrature.
+ * \param[in]  mapsize Size of each layer (L^2 in FLAG).
+ * \param[in]  N Harmonic band-limit.
+ * \retval none
+ */
+void flag_spherlaguerre_mapped_analysis_adjoint(FLAG_COMPLEX(double) *f, const FLAG_COMPLEX(double) *fn, const double *nodes, const double *weights, double tau, int N, int mapsize);
 
 /*!
  * Perform spherical Laguerre synthesis.
@@ -105,8 +123,20 @@ void flag_spherlaguerre_mapped_analysis(complex double *fn, const complex double
  * \param[in]  N Harmonic band-limit.
  * \retval none
  */
-void flag_spherlaguerre_mapped_synthesis(complex double *f, const complex double *fn, const double *nodes, int Nnodes, double tau, int N, int mapsize);
+void flag_spherlaguerre_mapped_synthesis(FLAG_COMPLEX(double) *f, const FLAG_COMPLEX(double) *fn, const double *nodes, int Nnodes, double tau, int N, int mapsize);
 
+/*!
+ * Perform adjoint spherical Laguerre synthesis.
+ * 3D mapped version - suitable for FLAG transform.
+ *
+ * \param[out]  f Synthesised dataset.
+ * \param[in]  fn Input SLAG coefficients.
+ * \param[in]  nodes Nodes of the sampling.
+ * \param[in]  mapsize Size of each layer (L^2 in FLAG).
+ * \param[in]  N Harmonic band-limit.
+ * \retval none
+ */
+void flag_spherlaguerre_mapped_synthesis_adjoint(FLAG_COMPLEX(double) *fn, const FLAG_COMPLEX(double) *f, const double *nodes, int Nnodes, double tau, int N, int mapsize);
 
 /*!
  * Compute the spherical-Laguerre basis functions on a grid of radii
@@ -119,4 +149,7 @@ void flag_spherlaguerre_mapped_synthesis(complex double *f, const complex double
  */
 void flag_spherlaguerre_basis(double *KN, const int N, const double *nodes, int Nnodes, double tau);
 
+#ifdef __cplusplus
+}
+#endif
 #endif

@@ -5,6 +5,11 @@
 #ifndef FLAG_SAMPLING
 #define FLAG_SAMPLING
 
+#include "flag_types.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* FOR FUTURE IMPROVEMENTS // multi-scheme support
 enum ssht_methods {
 	MW,
@@ -42,4 +47,7 @@ void flag_sampling_allocate(double **rs, double **thetas, double **phis, double 
  */
 void flag_sampling(double *rs, double *thetas, double *phis, double *laguweights, double tau, int L, int N);
 
+#ifdef __cplusplus
+}
+#endif
 #endif
