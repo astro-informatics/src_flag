@@ -3,7 +3,7 @@
 .. image:: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml/badge.svg
     :target: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml
 .. image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
-    :target: https://astro-informatics.github.io/src_flag/
+    :target: https://astro-informatics.github.io/flag/
 .. image:: https://img.shields.io/badge/License-GPL-blue.svg
     :target: http://perso.crans.org/besson/LICENSE.html
 .. image:: http://img.shields.io/badge/arXiv-1205.0792-orange.svg?style=flat
@@ -15,11 +15,11 @@
 
 DESCRIPTION
 ================================
-The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball. More details may be found in the extensive `documentation <https://astro-informatics.github.io/flag/>`_.
+The ``FLAG`` code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball. More details may be found in the extensive `documentation <https://astro-informatics.github.io/flag/>`_.
 
 BASIC USAGE
 ================================
-First install flag for python by running 
+First install ``FLAG`` for python by running 
 
 .. code-block:: bash
 
@@ -95,8 +95,10 @@ REFERENCES
 LICENSE
 ================================
 
+.. code-block::
+
      FLAG package to perform fast wavelet transform on the sphere<br>
-     Copyright (C) 2012 Boris Leistedt & Jason McEwen
+     Copyright (C) 2021 Boris Leistedt & Jason McEwen & Matthew Price
 
      This program is free software; you can redistribute it and/or
      modify it under the terms of the GNU General Public License

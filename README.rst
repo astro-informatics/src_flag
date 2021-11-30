@@ -3,7 +3,9 @@
 .. image:: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml/badge.svg
     :target: https://github.com/astro-informatics/src_flag/actions/workflows/cpp.yml
 .. image:: https://readthedocs.org/projects/ansicolortags/badge/?version=latest
-    :target: https://astro-informatics.github.io/src_flag/
+    :target: https://astro-informatics.github.io/flag/
+.. image:: https://badge.fury.io/py/pyflag.svg
+    :target: https://badge.fury.io/py/pyflag
 .. image:: https://img.shields.io/badge/License-GPL-blue.svg
     :target: http://perso.crans.org/besson/LICENSE.html
 .. image:: http://img.shields.io/badge/arXiv-1205.0792-orange.svg?style=flat
@@ -18,11 +20,11 @@
 
 .. |logo| raw:: html
 
-   <img src="./doc/images/logo.jpg" align="center" height="52" width="60">
+   <img src="./doc/images/logo.jpg" align="center" height="52" width="56">
 
 DESCRIPTION
 ================================
-The FLAG code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball.
+The ``FLAG`` code provides functionality to perform fast and exact Fourier-Laguerre and Fourier-Bessel transforms on the ball.
 
 C INSTALLATION
 ================================
@@ -45,7 +47,7 @@ within the build directory.
 
 PYTHON INSTALLATION
 ================================
-This package can easily be installed from PyPi by running
+``FLAG`` can easily be installed from PyPi by running
 
 .. code-block:: bash
 
@@ -72,7 +74,7 @@ Mex wrappers are available, however they are currently being sunsetted, so insta
 
 BASIC USAGE (PYTHON)
 ================================
-First install flag for python, then you can call it from any python script to perform forward and inverse flag transforms and their adjoints by 
+First install ``FLAG`` for python, then you can call it from any python script to perform forward and inverse flag transforms and their adjoints by 
 
 .. code-block:: python
 
@@ -141,8 +143,10 @@ REFERENCES
 LICENSE
 ================================
 
+.. code-block::
+
      FLAG package to perform fast wavelet transform on the sphere<br>
-     Copyright (C) 2012 Boris Leistedt & Jason McEwen
+     Copyright (C) 2021 Boris Leistedt & Jason McEwen & Matthew Price
 
      This program is free software; you can redistribute it and/or
      modify it under the terms of the GNU General Public License
