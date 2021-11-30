@@ -18,7 +18,7 @@
 
 .. |logo| raw:: html
 
-   <img src="./doc/images/logo.jpg" align="center" height="52" width="52">
+   <img src="./doc/images/logo.jpg" align="center" height="52" width="60">
 
 DESCRIPTION
 ================================
